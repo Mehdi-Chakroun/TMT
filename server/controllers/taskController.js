@@ -1,9 +1,10 @@
 const Task = require('../models/Task');
+const Comment = require('../models/Comment');
 
 
 async function getTasks(req, res) {
     try {
-        const tasks = await Task.find().populate('assignees');
+        const tasks = await Task.find().populate('assignees', 'fistName lastName').populate('comments');
         res.json(tasks);
       } catch (error) {
         console.error('Error retrieving tasks:', error);
@@ -62,9 +63,34 @@ async function updateTask(req, res) {
   }
 }
 
+
+// Example code to add a comment to a task
+const createComment = async (req, res) => {
+  try {
+    const { taskId } = req.params;
+    const { text, user } = req.body;
+    // Create a new comment
+    const newComment = new Comment({text, user});
+
+    // Save the new comment to the database
+    const savedComment = await newComment.save();
+
+    // Find the task and add the comment reference to the task's comments array
+    const task = await Task.findById(taskId);
+    task.comments.push(savedComment._id);
+    await task.save();
+    res.status(201).json(savedComment);
+
+  } catch (error) {
+    console.error('Error creating comment:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
     getTasks,
     createTask,
     deleteTask,
-    updateTask
+    updateTask,
+    createComment
   };

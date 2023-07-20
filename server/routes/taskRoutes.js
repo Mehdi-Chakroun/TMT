@@ -26,5 +26,5 @@ router.get('/tasks', taskController.getTasks);
 router.post('/tasks', taskController.createTask);
 router.delete('/tasks/:id', taskController.deleteTask);
 router.put('/tasks/:taskId', taskController.updateTask);
-
+router.post('/tasks/:taskId/comments', taskController.createComment);
 module.exports = router;

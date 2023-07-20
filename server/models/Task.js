@@ -6,8 +6,8 @@ const taskSchema = new mongoose.Schema({
     state: { type: String, enum: ['todo', 'inProgress', 'inReview', 'done'], required: true, default: 'todo'},
     assignees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     dueDate: { type: Date, required: true },
-    type: { type: String, enum: ['config', 'integration', 'consulting'], required: true }
-    
+    type: { type: String, enum: ['config', 'integration', 'consulting'], required: true },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
   });
   
 const Task = mongoose.model('Task', taskSchema);
