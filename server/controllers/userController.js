@@ -50,8 +50,17 @@ async function loginUser(req, res) {
         res.status(500).json({ error: 'Internal server error' });
       }
 }
-
+async function getUsers(req, res) {
+    try {
+        const users = await User.find();
+        res.json(users);
+      } catch (error) {
+        console.error('Error retrieving users:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+}
 module.exports = {
     registerUser,
     loginUser,
+    getUsers
 };

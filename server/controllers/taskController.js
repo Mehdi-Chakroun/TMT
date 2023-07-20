@@ -3,7 +3,7 @@ const Task = require('../models/Task');
 
 async function getTasks(req, res) {
     try {
-        const tasks = await Task.find();
+        const tasks = await Task.find().populate('assignees');
         res.json(tasks);
       } catch (error) {
         console.error('Error retrieving tasks:', error);
@@ -13,8 +13,9 @@ async function getTasks(req, res) {
 
 async function createTask(req, res) {
     try {
-        const { title, description } = req.body;
-        const newTask = new Task({ title, description });
+        const { title, description, state, assignees, dueDate, type } = req.body;
+        const dueDateObj = new Date(dueDate);
+        const newTask = new Task({ title, description, state, assignees, dueDate: dueDateObj, type });
         const savedTask = await newTask.save();
         res.status(201).json(savedTask);
       } catch (error) {

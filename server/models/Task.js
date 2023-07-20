@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-    title: String,
+    title: { type: String, required: true, unique: true},
     description: String,
-    // Add any other required fields for your tasks
+    state: { type: String, enum: ['todo', 'inProgress', 'inReview', 'done'], required: true, default: 'todo'},
+    assignees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    dueDate: { type: Date, required: true },
+    type: { type: String, enum: ['config', 'integration', 'consulting'], required: true }
+    
   });
   
 const Task = mongoose.model('Task', taskSchema);
