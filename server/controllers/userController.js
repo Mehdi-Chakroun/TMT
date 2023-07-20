@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 async function registerUser(req, res) {
     try {
-        const { username, password } = req.body;
+        const { username, password, firstName, lastName, role } = req.body;
     
         // Check if the username is already taken
         const existingUser = await User.findOne({ username });
@@ -16,7 +16,7 @@ async function registerUser(req, res) {
         const hashedPassword = await bcrypt.hash(password, 10);
     
         // Create a new user
-        const newUser = new User({ username, password: hashedPassword });
+        const newUser = new User({ username, password: hashedPassword, firstName, lastName, role });
         const savedUser = await newUser.save();
     
         res.status(201).json(savedUser);
@@ -59,8 +59,51 @@ async function getUsers(req, res) {
         res.status(500).json({ error: 'Internal server error' });
       }
 }
+async function deleteUser(req, res) {
+    try {
+        const { id } = req.params;
+        const deletedUser = await User.findByIdAndDelete(id);
+        res.json(deletedUser);
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+}
+async function updateUser(req, res) {
+  try {
+    const userId = req.params.userId;
+    const { firstName, lastName, username, password, role } = req.body;
+
+    // Find the user by ID
+    const userToUpdate = await User.findById(userId);
+
+    if (!userToUpdate) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    // Update the user properties
+    userToUpdate.firstName = firstName;
+    userToUpdate.lastName = lastName;
+    userToUpdate.username = username;
+    userToUpdate.password = hashedPassword; // Note: You should hash the password before saving in production.
+    userToUpdate.role = role;
+
+    
+
+    // Save the updated user to the database
+    const updatedUser = await userToUpdate.save();
+
+    res.json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 module.exports = {
     registerUser,
     loginUser,
-    getUsers
+    getUsers,
+    deleteUser,
+    updateUser
 };
