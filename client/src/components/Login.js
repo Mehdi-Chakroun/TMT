@@ -1,12 +1,19 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add login logic here...
-  };
+    await axios.post('http://localhost:4000/api/login', { username, password }).then((response) => {
+        console.log(response);
+        localStorage.setItem('token', response.data.token);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+    }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
