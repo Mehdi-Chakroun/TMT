@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:4000/api/login', { username, password }).then((response) => {
         console.log(response);
         localStorage.setItem('token', response.data.token);
+        navigate('/dashboard');
     })
     .catch((error) => {
         console.log(error);
