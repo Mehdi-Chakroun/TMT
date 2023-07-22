@@ -17,9 +17,8 @@ const TaskView = ({ task, onClose }) => {
           </div>
           <p className="mb-4">Type: {task.type}</p>
           <p className="mb-4">Description: {task.description}</p>
-          <p className="mb-4">Status: {task.status}</p>
+          <p className="mb-4">Status: {task.state}</p>
           <p className="mb-4">Due Date: {task.dueDate}</p>
-          {/* Display other task details as needed */}
           <div className="flex justify-between items-center text-gray-500 mt-4">
             <span>Created By: {task.createdBy}</span>
             <span>Created At: {task.createdAt}</span>

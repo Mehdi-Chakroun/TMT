@@ -3,13 +3,32 @@ const Comment = require('../models/Comment');
 
 
 async function getTasks(req, res) {
-    try {
-        const tasks = await Task.find().populate('assignees', 'fistName lastName').populate('comments');
-        res.json(tasks);
-      } catch (error) {
-        console.error('Error retrieving tasks:', error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
+  try {
+    const userRole = req.user.role;
+    if (userRole === 'user') {
+      
+      const tasks = await Task.find({ assignees: req.user._id }).populate('assignees', 'fistName lastName').populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'firstName lastName', 
+        },
+      });
+      res.json(tasks);
+    } else {
+      const tasks = await Task.find().populate('assignees', 'fistName lastName').populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'firstName lastName',
+        },
+      });
+      res.json(tasks);
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ message: 'Error fetching tasks' });
+  }
 }
 
 async function createTask(req, res) {

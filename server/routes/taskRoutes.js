@@ -10,19 +10,19 @@ function authenticateToken(req, res, next) {
     if (!token) {
       return res.status(401).json({ error: 'Access token not found' });
     }
-  
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      if (err) {
-        return res.status(403).json({ error: 'Invalid token' });
-      }
-  
+    
+    try {
+      const user = jwt.verify(token, process.env.JWT_SECRET);
       req.user = user;
       next();
-    });
+    } catch (error) {
+      console.error(error);
+      return res.status(403).json({ error: 'Invalid token' });
+    };
 }
 
 
-router.get('/tasks', taskController.getTasks);
+router.get('/tasks', authenticateToken, taskController.getTasks);
 router.post('/tasks', taskController.createTask);
 router.delete('/tasks/:id', taskController.deleteTask);
 router.put('/tasks/:taskId', taskController.updateTask);

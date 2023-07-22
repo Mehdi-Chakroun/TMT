@@ -1,71 +1,42 @@
 import React from 'react';
 import TaskList from './TaskList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TaskView from './TaskView';
-
+import axios from 'axios';
 const Dashboard = () => {
-  const testTasks = [
-    {
-      id: 1,
-      title: 'Task 1',
-      type: 'bug',
-      description: 'This is a description of task 1',
-      status: 'TODO',
-      dueDate: '2021-01-01',
-      assignees: ['user1', 'user2'],
-      comments: [
-        {
-          id: 1,
-          text: 'This is a comment',
-          user: {
-            id: 1,
-            name: 'John Doe'
-          }
-        },
-        {
-          id: 2,
-          text: 'This is another comment',
-          user: {
-            id: 2,
-            name: 'Jane Smith'
-          }
-        },
-        {
-          id: 3,
-          text: 'This is a third comment',
-          user: {
-            id: 1,
-            name: 'John Doe'
-          }
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: 'Task 2',
-      type: 'bug',
-      description: 'This is a description of task 2',
-      status: 'TODO',
-      dueDate: '2021-01-01',
-      assignees: ['user3', 'user4'],
-      comments: [
-        {
-          id: 6,
-          text: 'This is a comment'
-        },
-        {
-          id: 4,
-          text: 'This is another comment'
-        },
-        {
-          id: 5,
-          text: 'This is a third comment'
-        }
-      ]
-    },
-    
-  ];
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+
+  const authAxios = axios.create({
+    baseURL: 'http://localhost:4000/api',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      setLoading(true);
+      try {
+        const response = await authAxios.get('/tasks');
+        console.log(response);
+        setTasks(response.data);
+      } catch (error) {
+        setError(error);
+        console.error('Error loading tasks:', error);
+      }
+      setLoading(false);
+    };
+    fetchTasks();
+  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error loading tasks: {error.message}</div>;
+  }
 
   const handleTaskClick = (task) => {
     setSelectedTask(task);
@@ -79,21 +50,21 @@ const Dashboard = () => {
     <div className="flex flex-col mx-4">
       <h2 className="text-2xl font-semibold mb-4">TODO</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
-        <TaskList tasks={testTasks.filter((task) => task.status === 'TODO')} onTaskClick={handleTaskClick} />
+        <TaskList tasks={tasks.filter((task) => task.state === 'TODO')} onTaskClick={handleTaskClick} />
       </div>
     </div>
 
     <div className="flex flex-col mx-4">
       <h2 className="text-2xl font-semibold mb-4">In Progress</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
-        <TaskList tasks={testTasks.filter((task) => task.status === 'IN_PROGRESS')} onTaskClick={handleTaskClick} />
+        <TaskList tasks={tasks.filter((task) => task.state === 'IN_PROGRESS')} onTaskClick={handleTaskClick} />
       </div>
     </div>
 
     <div className="flex flex-col mx-4">
       <h2 className="text-2xl font-semibold mb-4">Done</h2>
       <div className="bg-white rounded-lg shadow-md p-4">
-        <TaskList tasks={testTasks.filter((task) => task.status === 'DONE')} onTaskClick={handleTaskClick} />
+        <TaskList tasks={tasks.filter((task) => task.state === 'DONE')} onTaskClick={handleTaskClick} />
       </div>
     </div>
 
