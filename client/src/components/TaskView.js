@@ -2,10 +2,10 @@ import React from 'react';
 import Comments from './Comments';
 const TaskView = ({ task, onClose }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="modal-overlay fixed inset-0 bg-black opacity-50"></div>
-      <div className="modal-container bg-white w-5/6 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto transform transition-all duration-300">
-        <div className="modal-content py-4 px-6">
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">
+      <div className="modal-overlay fixed inset-0 bg-black opacity-50 overflow-y-auto"></div>
+      <div className="modal-container bg-white w-5/6 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <div className="modal-content py-4 px-6 flex flex-col h-screen">
           <div className="flex justify-between items-center pb-3">
             <h2 className="text-2xl font-semibold">{task.title}</h2>
             <button
@@ -23,8 +23,10 @@ const TaskView = ({ task, onClose }) => {
             <span>Created By: {task.createdBy}</span>
             <span>Created At: {task.createdAt}</span>
           </div>
+          <Comments comments={task.comments} />
+
         </div>
-        <Comments comments={task.comments} />
+
       </div>
     </div>
   );
