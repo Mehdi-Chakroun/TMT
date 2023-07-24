@@ -8,8 +8,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-  const [updatedTask, setUpdatedTask] = useState({});
-  
+
   const authAxios = axios.create({
     baseURL: 'http://localhost:4000/api',
     headers: {
@@ -51,8 +50,9 @@ const Dashboard = () => {
 
   const updateTaskState = async (taskId, newState) => {
     try {
-      setUpdatedTask(tasks.filter((task) => task._id === taskId));
-      console.log(updatedTask);
+      const response = await authAxios.patch(`/tasks/${taskId}`, { state: newState });
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === response.data._id ? response.data : task)));
     } catch (error) {
       console.error('Error updating task state:', error);
     }

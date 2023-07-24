@@ -126,14 +126,8 @@ async function patchTask(req, res) {
     await task.save();
 
     // Return the updated task as the response
-    const tasks = await Task.find().populate('assignees', 'fistName lastName').populate({
-      path: 'comments',
-      populate: {
-        path: 'user',
-        select: 'firstName lastName',
-      },
-    });
-    res.json(tasks);
+    const updatedTask = await Task.findById(id);
+    res.json(updatedTask);
   } catch (error) {
     console.error('Error updating task:', error);
     res.status(500).json({ error: 'Internal server error' });
