@@ -106,10 +106,45 @@ const createComment = async (req, res) => {
   }
 };
 
+async function patchTask(req, res) {
+  const { id } = req.params;
+  const { state } = req.body;
+
+  try {
+    // Find the task by ID
+    const task = await Task.findById(id);
+
+    // If the task is not found, return a 404 response
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Update the state of the task
+    task.state = state;
+    
+    // Save the updated task in the database
+    await task.save();
+
+    // Return the updated task as the response
+    const tasks = await Task.find().populate('assignees', 'fistName lastName').populate({
+      path: 'comments',
+      populate: {
+        path: 'user',
+        select: 'firstName lastName',
+      },
+    });
+    res.json(tasks);
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 module.exports = {
     getTasks,
     createTask,
     deleteTask,
     updateTask,
-    createComment
+    createComment,
+    patchTask
   };
