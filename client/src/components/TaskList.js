@@ -12,7 +12,7 @@ const TaskList = ({ tasks, updateTaskState }) => {
   
 
   return (
-    <div>
+    <div className="min-w-200">
       {tasks.map((task) => (
       <div key={task._id} className="border rounded-lg p-4 mb-4">
       <h3 className="text-xl font-semibold mb-2">{task.title}</h3>
@@ -32,12 +32,28 @@ const TaskList = ({ tasks, updateTaskState }) => {
           Start Task
         </button>
       )}
-      {task.state === 'IN_PROGRESS' && (
+      {task.state === 'IN_PROGRESS' && ( 
+        <>
+          <button
+            className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors"
+            onClick={() => handleUpdateTaskState(task._id, 'IN_REVIEW')}
+          >
+            Submit for review
+          </button>
+          <button
+            className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
+            onClick={() => handleUpdateTaskState(task._id, 'TODO')}
+          >
+            Cancel Task
+          </button>
+         </>
+      )}
+      {task.state === 'IN_REVIEW' && (
         <button
           className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors"
-          onClick={() => handleUpdateTaskState(task._id, 'DONE')}
+          onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
         >
-          Complete Task
+          Request changes
         </button>
       )}
       </div>

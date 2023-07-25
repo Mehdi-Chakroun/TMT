@@ -33,6 +33,7 @@ const Dashboard = () => {
   const todoTasks = tasks.filter((task) => task.state === 'TODO');
   const inProgressTasks = tasks.filter((task) => task.state === 'IN_PROGRESS');
   const doneTasks = tasks.filter((task) => task.state === 'DONE');
+  const inReviewTasks = tasks.filter((task) => task.state === 'IN_REVIEW');
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -64,9 +65,9 @@ const Dashboard = () => {
   
   return (
     <div className="flex justify-center py-10">
-      <div className="flex flex-col mx-4">
-        <h2 className="text-2xl font-semibold mb-4">TODO</h2>
-        <div className="bg-white rounded-lg shadow-md p-4">
+      <div className="flex flex-col mx-4 flex-1">
+        <h2 className="text-2xl font-semibold mb-4">To Do</h2>
+        <div className="bg-white rounded-lg shadow-md p-4 grow">
           <TaskList
             tasks={todoTasks}
             onTaskClick={handleTaskClick}
@@ -75,9 +76,9 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-col mx-4">
+      <div className="flex flex-col mx-4 flex-1">
         <h2 className="text-2xl font-semibold mb-4">In Progress</h2>
-        <div className="bg-white rounded-lg shadow-md p-4">
+        <div className="bg-white rounded-lg shadow-md p-4 grow">
           <TaskList
             tasks={inProgressTasks}
             onTaskClick={handleTaskClick}
@@ -86,9 +87,20 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-col mx-4">
+      <div className="flex flex-col mx-4 flex-1">
+        <h2 className="text-2xl font-semibold mb-4">In Review</h2>
+        <div className="bg-white rounded-lg shadow-md p-4 grow">
+          <TaskList
+            tasks={inReviewTasks}
+            onTaskClick={handleTaskClick}
+            updateTaskState={updateTaskState}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col mx-4 flex-1">
         <h2 className="text-2xl font-semibold mb-4">Done</h2>
-        <div className="bg-white rounded-lg shadow-md p-4">
+        <div className="bg-white rounded-lg shadow-md p-4 grow">
           <TaskList
             tasks={doneTasks}
             onTaskClick={handleTaskClick}
