@@ -3,6 +3,7 @@ import TaskList from './TaskList';
 import TaskView from './TaskView';
 import axios from 'axios';
 
+
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,7 @@ const Dashboard = () => {
 
   
   return (
-    <div className="flex justify-center py-10">
+    <div className="flex justify-center py-10 flex-wrap">
       <div className="flex flex-col mx-4 flex-1">
         <h2 className="text-2xl font-semibold mb-4">To Do</h2>
         <div className="bg-white rounded-lg shadow-md p-4 grow">
