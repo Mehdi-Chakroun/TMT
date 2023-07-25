@@ -21,7 +21,6 @@ const Dashboard = () => {
     setLoading(true);
     try {
       const response = await authAxios.get('/tasks');
-      console.log(response);
       setTasks(response.data);
     } catch (error) {
       setError(error);
@@ -31,7 +30,9 @@ const Dashboard = () => {
   };
     fetchTasks();
   }, []);
-
+  const todoTasks = tasks.filter((task) => task.state === 'TODO');
+  const inProgressTasks = tasks.filter((task) => task.state === 'IN_PROGRESS');
+  const doneTasks = tasks.filter((task) => task.state === 'DONE');
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -53,6 +54,8 @@ const Dashboard = () => {
       const response = await authAxios.patch(`/tasks/${taskId}`, { state: newState });
       setTasks((prevTasks) =>
         prevTasks.map((task) => (task._id === response.data._id ? response.data : task)));
+        console.log(taskId, newState);
+
     } catch (error) {
       console.error('Error updating task state:', error);
     }
@@ -65,7 +68,7 @@ const Dashboard = () => {
         <h2 className="text-2xl font-semibold mb-4">TODO</h2>
         <div className="bg-white rounded-lg shadow-md p-4">
           <TaskList
-            propTasks={tasks.filter((task) => task.state === 'TODO')}
+            tasks={todoTasks}
             onTaskClick={handleTaskClick}
             updateTaskState={updateTaskState}
           />
@@ -76,7 +79,7 @@ const Dashboard = () => {
         <h2 className="text-2xl font-semibold mb-4">In Progress</h2>
         <div className="bg-white rounded-lg shadow-md p-4">
           <TaskList
-            propTasks={tasks.filter((task) => task.state === 'IN_PROGRESS')}
+            tasks={inProgressTasks}
             onTaskClick={handleTaskClick}
             updateTaskState={updateTaskState}
           />
@@ -87,7 +90,7 @@ const Dashboard = () => {
         <h2 className="text-2xl font-semibold mb-4">Done</h2>
         <div className="bg-white rounded-lg shadow-md p-4">
           <TaskList
-            propTasks={tasks.filter((task) => task.state === 'DONE')}
+            tasks={doneTasks}
             onTaskClick={handleTaskClick}
             updateTaskState={updateTaskState}
           />

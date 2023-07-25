@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import TaskView from './TaskView';
-const TaskList = ({ propTasks, updateTaskState }) => {
+const TaskList = ({ tasks, updateTaskState }) => {
   const [selectedTask, setSelectedTask] = useState(null);
-  const [tasks, setTasks] = useState(propTasks);
+
   const handleTaskClick = (task) => {
     setSelectedTask(task);
   };
@@ -14,7 +14,7 @@ const TaskList = ({ propTasks, updateTaskState }) => {
   return (
     <div>
       {tasks.map((task) => (
-      <div key={task.id} className="border rounded-lg p-4 mb-4">
+      <div key={task._id} className="border rounded-lg p-4 mb-4">
       <h3 className="text-xl font-semibold mb-2">{task.title}</h3>
       <p className="text-gray-600 mb-1">Type: {task.type}</p>
       <p className="text-gray-600 mb-1">Due Date: {task.dueDate}</p>
