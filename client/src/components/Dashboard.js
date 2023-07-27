@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import TaskList from './TaskList';
-import TaskView from './TaskView';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+  const navigate = useNavigate();
 
   const authAxios = axios.create({
     baseURL: 'http://localhost:4000/api',
@@ -113,7 +113,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      
+       <a onClick={() => navigate('/admin')}> Admin </a> 
+
     </div>
   );
 };
