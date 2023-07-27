@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const EditUserModal = ({ user, onClose, onUpdate, currentUser }) => {
+const EditUserModal = ({ user, onClose, onUpdate }) => {
     const [username, setUsername] = useState(user.username);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [role, setRole] = useState(user.role);
+
     
-    const authAxios = axios.create({
-        baseURL: 'http://localhost:4000/api',
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-    });
+    const currentUserRole = localStorage.getItem('role');
+    console.log(currentUserRole);
     const handleUsernameChange = (event) => {
       setUsername(event.target.value);
     };
@@ -33,7 +29,6 @@ const EditUserModal = ({ user, onClose, onUpdate, currentUser }) => {
       event.preventDefault();
       // Perform the update here with the updated user data
       onUpdate({
-        _id: user._id,
         username,
         firstName,
         lastName,
@@ -86,7 +81,7 @@ const EditUserModal = ({ user, onClose, onUpdate, currentUser }) => {
                 required
               />
             </div>
-            {currentUser.role === 'SUPER_ADMIN' && (
+            {currentUserRole === 'SUPER_ADMIN' && (
               <div className="mb-4">
                 <span className="block text-sm font-medium text-gray-700">Role</span>
                 <div className="mt-1">

@@ -17,15 +17,6 @@ const AdminPage = () => {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
-  
-  const getCurrentUser = async () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-    const decodedToken = jwtDecode(token);
-    return decodedToken;
-    }
-    return null;
-  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -88,7 +79,7 @@ const AdminPage = () => {
       <UserList users={users} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser}/>
 
       {isModalOpen && (
-        <EditUserModal user={selectedUser} onClose={handleCloseModal} onUpdate={handleUserUpdate} currentUser={getCurrentUser} />
+        <EditUserModal user={selectedUser} onClose={handleCloseModal} onUpdate={handleUserUpdate} />
       )}
     </div>
     
