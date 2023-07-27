@@ -69,37 +69,28 @@ async function deleteUser(req, res) {
         res.status(500).json({ error: 'Internal server error' });
       }
 }
-async function updateUser(req, res) {
+
+const updateUser = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const { firstName, lastName, username, password, role } = req.body;
+    const { username, firstName, lastName, role } = req.body; // Assuming the fields you want to update are in the request body
+    const user = await User.findById(req.params.userId);
 
-    // Find the user by ID
-    const userToUpdate = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }    
+    user.username = username || user.username;
+    user.firstName = firstName || user.firstName;
+    user.lastName = lastName || user.lastName;
+    user.role = role || user.role;
 
-    if (!userToUpdate) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    // Update the user properties
-    userToUpdate.firstName = firstName;
-    userToUpdate.lastName = lastName;
-    userToUpdate.username = username;
-    userToUpdate.password = hashedPassword; // Note: You should hash the password before saving in production.
-    userToUpdate.role = role;
-
-    
-
-    // Save the updated user to the database
-    const updatedUser = await userToUpdate.save();
-
+    const updatedUser = await user.save();
     res.json(updatedUser);
   } catch (error) {
+    res.status(500).json({ message: 'Error updating user', error: error.message });
     console.error('Error updating user:', error);
-    res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
+
 module.exports = {
     registerUser,
     loginUser,
