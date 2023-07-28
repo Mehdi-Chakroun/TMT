@@ -73,7 +73,7 @@ const Dashboard = () => {
      <Header />
       <div className="flex justify-center py-10 flex-wrap container mx-auto">
         <div className="flex flex-col mx-4 flex-1 text-orange-500">
-          <h2 className="text-2xl font-semibold mb-4 flex"> <FaTasks className='mr-2' />To Do</h2>
+          <h2 className="text-2xl font-semibold mb-4 flex items-center"> <FaTasks className='mr-2' />To Do</h2>
           <div className="h-1 w-full bg-orange-500"></div>
           <div className="bg-white rounded-lg shadow-md p-4 grow">
             <TaskList
@@ -84,7 +84,7 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col mx-4 flex-1 text-yellow-600">
-          <h2 className="text-2xl font-semibold mb-4 flex"><FaSpinner className='mr-2 ' /> In Progress</h2>
+          <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaSpinner className='mr-2 ' /> In Progress</h2>
           <div className="h-1 w-full bg-yellow-600"></div>
           <div className="bg-white rounded-lg shadow-md p-4 grow">
             <TaskList
@@ -95,7 +95,7 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col mx-4 flex-1 text-blue-500">
-          <h2 className="text-2xl font-semibold mb-4 flex"><FaTimesCircle className='mr-2' /> In Review</h2>
+          <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaTimesCircle className='mr-2' /> In Review</h2>
           <div className="h-1 w-full bg-blue-500"></div>
           <div className="bg-white rounded-lg shadow-md p-4 grow">
             <TaskList
@@ -106,7 +106,7 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col mx-4 flex-1 text-green-500">
-          <h2 className="text-2xl font-semibold mb-4 flex"><FaCheckCircle className='mr-2' /> Done</h2>
+          <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaCheckCircle className='mr-2' /> Done</h2>
           <div className="h-1 w-full bg-green-500"></div>
 
           <div className="bg-white rounded-lg shadow-md p-4 grow">

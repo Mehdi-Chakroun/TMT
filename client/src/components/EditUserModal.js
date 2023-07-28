@@ -76,7 +76,7 @@ const EditUserModal = ({ user, onClose, onUpdate }) => {
               <input
                 type="text"
                 id="lastName"
-                className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                className="mt-1 focus:ring-blue-500 focus:border-blue-200 block w-full shadow-sm sm:text-sm border-blue-300 rounded-md items-center"
                 value={lastName}
                 onChange={handleLastNameChange}
                 required
@@ -89,22 +89,22 @@ const EditUserModal = ({ user, onClose, onUpdate }) => {
                   <label className="inline-flex items-center">
                     <input
                       type="radio"
-                      className="form-radio text-blue-500 focus:ring-blue-500"
+                      className="form-radio text-green-500 focus:ring-green-500"
                       value="ADMIN"
                       checked={role === 'ADMIN'}
                       onChange={handleRoleChange}
                     />
-                    <span className="ml-2">Admin</span>
+                    <span className="ml-2 text-green-500">Admin</span>
                   </label>
                   <label className="inline-flex items-center ml-6">
                     <input
                       type="radio"
-                      className="form-radio text-blue-500 focus:ring-blue-500"
+                      className="form-radio text-yellow-600 focus:ring-yellow-500"
                       value="USER"
                       checked={role === 'USER'}
                       onChange={handleRoleChange}
                     />
-                    <span className="ml-2">User</span>
+                    <span className="ml-2 text-yellow-600">User</span>
                   </label>
                 </div>
               </div>

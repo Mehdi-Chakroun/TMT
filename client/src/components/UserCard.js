@@ -15,13 +15,13 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => {
           
           <div className="flex">
           <button
-            className="px-3 py-1 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
+            className="px-2 py-1 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
             onClick={() => onEditClick(user)}
           >
             <FontAwesomeIcon icon={faEdit} />
           </button>
           <button
-            className="px-3 py-1 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-colors mr-2"
+            className="px-2 py-1 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-colors mr-2"
             onClick={() => onDeleteClick(user._id)}
           >
             <FontAwesomeIcon icon={faTrashAlt} />

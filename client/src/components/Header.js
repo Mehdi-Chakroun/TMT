@@ -30,7 +30,7 @@ const Header = () => {
             localStorage.clear();
             window.location.href = '/';
             }} 
-            className="flex bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 align-text-bottom">
+            className="flex bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 items-center">
             <FaSignOutAlt className="text-white mr-2 text-xl" /> Logout
         </button>
       </div>
