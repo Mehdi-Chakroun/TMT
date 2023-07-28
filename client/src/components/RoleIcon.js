@@ -4,7 +4,7 @@ import { FaUser, FaUserShield, FaUserCog } from 'react-icons/fa';
 const RoleIcon = ({ role }) => {
     if (role === 'ADMIN') {
         return (
-          <div className="text-gray-600 mb-1 flex">
+          <div className="text-green-600 mb-1 flex">
               <FaUserShield className="mr-2" />
               <span>Admin</span>
           </div>
@@ -12,14 +12,14 @@ const RoleIcon = ({ role }) => {
         );
     } else if (role === 'SUPER_ADMIN') {
         return (
-          <div className="text-gray-600 mb-1 flex">
+          <div className="text-purple-600 mb-1 flex">
               <FaUserCog className="mr-2" />
               <span>Super Admin</span>
           </div>
         );
     } else {
         return (
-          <div className="text-gray-600 mb-1 flex">
+          <div className="text-yellow-400 mb-1 flex">
               <FaUser className="mr-2" />
               <span>User</span>
           </div>

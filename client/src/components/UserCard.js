@@ -2,15 +2,18 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import RoleIcon from './RoleIcon';
-import { FaUserAlt } from 'react-icons/fa';
 
 const UserCard = ({ user, onEditClick, onDeleteClick }) => {
-
+  const currentUserRole = localStorage.getItem('role');
+  console.log('currentUserRole: ', currentUserRole);
+  console.log('user.role: ', user.role);
   return (
     <div className="bg-white rounded-lg shadow-md p-4">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-xl font-semibold"><FontAwesomeIcon className="mr-1" icon={faUser} /> {user.firstName} {user.lastName}</h3>
-        <div className="flex">
+        { ((currentUserRole === 'ADMIN' && user.role === 'USER') || (currentUserRole === 'SUPER_ADMIN' && user.role !== 'SUPER_ADMIN')) &&
+          
+          <div className="flex">
           <button
             className="px-3 py-1 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
             onClick={() => onEditClick(user)}
@@ -24,6 +27,8 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => {
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </div>
+        }
+        
       </div>
       <RoleIcon role={user.role} />
     </div>

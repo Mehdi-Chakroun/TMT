@@ -8,7 +8,8 @@ const EditUserModal = ({ user, onClose, onUpdate }) => {
 
     
     const currentUserRole = localStorage.getItem('role');
-    console.log(currentUserRole);
+    console.log('currentUserRole: ', currentUserRole);
+    console.log('user.role: ', user.role);
     const handleUsernameChange = (event) => {
       setUsername(event.target.value);
     };
@@ -32,8 +33,8 @@ const EditUserModal = ({ user, onClose, onUpdate }) => {
         username,
         firstName,
         lastName,
-        role: user.role,
-        });
+        role,
+      });
       onClose();
     };
   
