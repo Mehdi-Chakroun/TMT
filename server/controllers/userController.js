@@ -52,8 +52,12 @@ async function loginUser(req, res) {
 }
 async function getUsers(req, res) {
     try {
+      if (req.user.role === 'ADMIN' || req.user.role === 'SUPER_ADMIN') {
         const users = await User.find();
         res.json(users);
+      } else {
+        res.status(403).json({ error: 'Unauthorized' });
+      }
       } catch (error) {
         console.error('Error retrieving users:', error);
         res.status(500).json({ error: 'Internal server error' });
