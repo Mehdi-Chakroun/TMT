@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import TaskList from './TaskList';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import Header from './Header';
-
+import LoadingTemplate from './LoadingTemplate';
+import sleep from '../utils';
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,6 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
     setLoading(true);
+    await sleep(1000);
     try {
       const response = await authAxios.get('/tasks');
       setTasks(response.data);
@@ -36,9 +37,9 @@ const Dashboard = () => {
   const inProgressTasks = tasks.filter((task) => task.state === 'IN_PROGRESS');
   const doneTasks = tasks.filter((task) => task.state === 'DONE');
   const inReviewTasks = tasks.filter((task) => task.state === 'IN_REVIEW');
-  
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LoadingTemplate /></div>;
   }
 
   if (error) {

@@ -3,6 +3,7 @@ import UserList from './UserList';
 import axios from 'axios';
 import EditUserModal from './EditUserModal';
 import Header from './Header';
+import sleep from '../utils';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
@@ -20,6 +21,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      await sleep(1000);
       setLoading(true);
       try {
         const response = await authAxios.get('/users');
