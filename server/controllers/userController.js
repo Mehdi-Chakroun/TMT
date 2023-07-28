@@ -52,7 +52,9 @@ async function loginUser(req, res) {
 }
 async function getUsers(req, res) {
     try {
-      if (req.user.role === 'ADMIN' || req.user.role === 'SUPER_ADMIN') {
+      const user =  await User.findById(req.user.userId);
+      const userRole = user.role;
+      if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
         const users = await User.find();
         res.json(users);
       } else {
