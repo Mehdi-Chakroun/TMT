@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TaskList from './TaskList';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -63,59 +64,55 @@ const Dashboard = () => {
 
   
   return (
-    <div className="flex justify-center py-10 flex-wrap">
-      <div className="flex flex-col mx-4 flex-1">
-        <h2 className="text-2xl font-semibold mb-4">To Do</h2>
-        <div className="h-1 w-full bg-orange-500"></div>
-        <div className="bg-white rounded-lg shadow-md p-4 grow">
-          <TaskList
-            tasks={todoTasks}
-            onTaskClick={handleTaskClick}
-            updateTaskState={updateTaskState}
-          />
+    <>
+     <Header />
+      <div className="flex justify-center py-10 flex-wrap">
+        <div className="flex flex-col mx-4 flex-1">
+          <h2 className="text-2xl font-semibold mb-4">To Do</h2>
+          <div className="h-1 w-full bg-orange-500"></div>
+          <div className="bg-white rounded-lg shadow-md p-4 grow">
+            <TaskList
+              tasks={todoTasks}
+              onTaskClick={handleTaskClick}
+              updateTaskState={updateTaskState} />
+          </div>
+        </div>
+
+        <div className="flex flex-col mx-4 flex-1">
+          <h2 className="text-2xl font-semibold mb-4">In Progress</h2>
+          <div className="h-1 w-full bg-yellow-500"></div>
+          <div className="bg-white rounded-lg shadow-md p-4 grow">
+            <TaskList
+              tasks={inProgressTasks}
+              onTaskClick={handleTaskClick}
+              updateTaskState={updateTaskState} />
+          </div>
+        </div>
+
+        <div className="flex flex-col mx-4 flex-1">
+          <h2 className="text-2xl font-semibold mb-4">In Review</h2>
+          <div className="h-1 w-full bg-blue-500"></div>
+          <div className="bg-white rounded-lg shadow-md p-4 grow">
+            <TaskList
+              tasks={inReviewTasks}
+              onTaskClick={handleTaskClick}
+              updateTaskState={updateTaskState} />
+          </div>
+        </div>
+
+        <div className="flex flex-col mx-4 flex-1">
+          <h2 className="text-2xl font-semibold mb-4">Done</h2>
+          <div className="h-1 w-full bg-green-500"></div>
+
+          <div className="bg-white rounded-lg shadow-md p-4 grow">
+            <TaskList
+              tasks={doneTasks}
+              onTaskClick={handleTaskClick}
+              updateTaskState={updateTaskState} />
+          </div>
         </div>
       </div>
-
-      <div className="flex flex-col mx-4 flex-1">
-        <h2 className="text-2xl font-semibold mb-4">In Progress</h2>
-        <div className="h-1 w-full bg-yellow-500"></div>
-        <div className="bg-white rounded-lg shadow-md p-4 grow">
-          <TaskList
-            tasks={inProgressTasks}
-            onTaskClick={handleTaskClick}
-            updateTaskState={updateTaskState}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col mx-4 flex-1">
-        <h2 className="text-2xl font-semibold mb-4">In Review</h2>
-        <div className="h-1 w-full bg-blue-500"></div>
-        <div className="bg-white rounded-lg shadow-md p-4 grow">
-          <TaskList
-            tasks={inReviewTasks}
-            onTaskClick={handleTaskClick}
-            updateTaskState={updateTaskState}
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col mx-4 flex-1">
-        <h2 className="text-2xl font-semibold mb-4">Done</h2>
-        <div className="h-1 w-full bg-green-500"></div>
-
-        <div className="bg-white rounded-lg shadow-md p-4 grow">
-          <TaskList
-            tasks={doneTasks}
-            onTaskClick={handleTaskClick}
-            updateTaskState={updateTaskState}
-          />
-        </div>
-      </div>
-
-       <a onClick={() => navigate('/admin')}> Admin </a> 
-
-    </div>
+    </>
   );
 };
 

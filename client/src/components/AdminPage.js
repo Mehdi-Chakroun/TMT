@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 import axios from 'axios';
 import EditUserModal from './EditUserModal';
-import jwtDecode from 'jwt-decode';
+import Header from './Header';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
@@ -74,14 +74,17 @@ const AdminPage = () => {
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <>
+     <Header />
+     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-semibold mb-6">Admin Page</h1>
-      <UserList users={users} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser}/>
+      <UserList users={users} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser} />
 
       {isModalOpen && (
         <EditUserModal user={selectedUser} onClose={handleCloseModal} onUpdate={handleUserUpdate} />
       )}
-    </div>
+     </div>
+    </>
     
   );
 };
