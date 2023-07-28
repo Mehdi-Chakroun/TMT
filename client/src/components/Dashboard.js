@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-  const navigate = useNavigate();
 
   const authAxios = axios.create({
     baseURL: 'http://localhost:4000/api',
@@ -32,10 +31,12 @@ const Dashboard = () => {
   };
     fetchTasks();
   }, []);
+
   const todoTasks = tasks.filter((task) => task.state === 'TODO');
   const inProgressTasks = tasks.filter((task) => task.state === 'IN_PROGRESS');
   const doneTasks = tasks.filter((task) => task.state === 'DONE');
   const inReviewTasks = tasks.filter((task) => task.state === 'IN_REVIEW');
+  
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -26,7 +26,11 @@ const Header = () => {
         ) : null}
 
         {/* Logout link */}
-        <button className="border rounded-lg px-4 py-2 bg-red-500 text-white">
+        <button onClick={() => {
+            localStorage.clear();
+            window.location.href = '/';
+            }} 
+            className="border rounded-lg px-4 py-2 bg-red-500 text-white">
           Logout
         </button>
       </div>
