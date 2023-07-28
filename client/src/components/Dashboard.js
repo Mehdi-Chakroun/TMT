@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from './Header';
 import LoadingTemplate from './LoadingTemplate';
 import sleep from '../utils';
+import ErrorTemplate from './ErrorTemplate';
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,16 +44,16 @@ const Dashboard = () => {
   }
 
   if (error) {
-    return <div>Error loading tasks: {error.message}</div>;
+    return (
+    <div>
+      <ErrorTemplate errorMessage={error.message}/>
+    </div>);
   }
 
   const handleTaskClick = (task) => {
     setSelectedTask(task);
   };
 
-  const handleCloseModal = () => {
-    setSelectedTask(null);
-  };
 
   const updateTaskState = async (taskId, newState) => {
     try {

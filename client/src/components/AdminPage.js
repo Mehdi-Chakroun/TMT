@@ -4,7 +4,8 @@ import axios from 'axios';
 import EditUserModal from './EditUserModal';
 import Header from './Header';
 import sleep from '../utils';
-
+import LoadingTemplate from './LoadingTemplate';
+import ErrorTemplate from './ErrorTemplate';
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,11 +69,11 @@ const AdminPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div> <LoadingTemplate /> </div>;
   }
 
   if (error) {
-    return <div>Error loading users: {error.message}</div>;
+    return <div> <ErrorTemplate errorMessage={error.message}/> </div>
   }
 
   return (
