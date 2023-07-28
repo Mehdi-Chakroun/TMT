@@ -1,0 +1,30 @@
+import React from 'react';
+import { FaUser, FaUserShield, FaUserCog } from 'react-icons/fa';
+
+const RoleIcon = ({ role }) => {
+    if (role === 'ADMIN') {
+        return (
+          <div className="text-gray-600 mb-1 flex">
+              <FaUserShield className="mr-2" />
+              <span>Admin</span>
+          </div>
+        
+        );
+    } else if (role === 'SUPER_ADMIN') {
+        return (
+          <div className="text-gray-600 mb-1 flex">
+              <FaUserCog className="mr-2" />
+              <span>Super Admin</span>
+          </div>
+        );
+    } else {
+        return (
+          <div className="text-gray-600 mb-1 flex">
+              <FaUser className="mr-2" />
+              <span>User</span>
+          </div>
+        );
+    }
+};
+
+export default RoleIcon;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
-
+import { FaSignOutAlt } from 'react-icons/fa';
 const Header = () => {
     const role = localStorage.getItem('role');
     const firstName = localStorage.getItem('firstName');
@@ -30,8 +30,8 @@ const Header = () => {
             localStorage.clear();
             window.location.href = '/';
             }} 
-            className="border rounded-lg px-4 py-2 bg-red-500 text-white">
-          Logout
+            className="flex bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 align-text-bottom">
+            <FaSignOutAlt className="text-white mr-2 text-xl" /> Logout
         </button>
       </div>
     </header>

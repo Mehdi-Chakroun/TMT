@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaUser, FaLock } from 'react-icons/fa';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -27,8 +28,8 @@ const Login = () => {
         <h2 className="mb-6 text-3xl font-semibold text-center">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="username" className="block mb-1 font-medium">
-              Username
+            <label htmlFor="username" className="flex block mb-1 font-medium align-text-bottom">
+            <FaUser className="mr-2 text-gray-600 text-xl" /> Username
             </label>
             <input
               type="text"
@@ -39,8 +40,8 @@ const Login = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="password" className="block mb-1 font-medium">
-              Password
+            <label htmlFor="password" className="flex block mb-1 font-medium align-text-bottom">
+            <FaLock className="mr-2 text-gray-600 text-xl" /> Password
             </label>
             <input
               type="password"

@@ -8,7 +8,7 @@ import LoadingTemplate from './LoadingTemplate';
 import ErrorTemplate from './ErrorTemplate';
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

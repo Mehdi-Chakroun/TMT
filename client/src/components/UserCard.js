@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
+import RoleIcon from './RoleIcon';
+import { FaUserAlt } from 'react-icons/fa';
 
 const UserCard = ({ user, onEditClick, onDeleteClick }) => {
 
@@ -23,8 +25,7 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => {
           </button>
         </div>
       </div>
-      <p className="text-gray-600 mb-1">Username: {user.username}</p>
-      <p className="text-gray-600 mb-1">Role: {user.role}</p>
+      <RoleIcon role={user.role} />
     </div>
   );
 };
