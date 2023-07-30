@@ -9,6 +9,7 @@ import ErrorTemplate from './ErrorTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
 import AddUserModal from './AddUserModal';
+import AddTaskModal from './AddTaskModal';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
@@ -95,10 +96,6 @@ const AdminPage = () => {
     setShowCreateTaskModal(true);
   };
   
-  const closeCreateTaskModal = () => {
-    setShowCreateTaskModal(false);
-  };
-  
   const onAdd = async (userPayload) => {
     try {
       const response = await authAxios.post('/users', userPayload);
@@ -133,7 +130,7 @@ const AdminPage = () => {
   return (
     <>
      <Header />
-     <div className="flex items-center mb-4">
+     <div className="flex items-center justify-center mt-8">
         <button
           onClick={openCreateUserModal}
           className="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-colors mr-2"
@@ -170,6 +167,7 @@ const AdminPage = () => {
       {showCreateTaskModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg shadow-md p-4 max-w-md">
+          <AddTaskModal onClose={handleCloseAddTaskModal} users={users} />
           </div>
         </div>
       )}

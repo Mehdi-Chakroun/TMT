@@ -75,7 +75,7 @@ const Dashboard = () => {
         <div className="flex flex-col mx-4 flex-1 text-purple-500">
           <h2 className="text-2xl font-semibold mb-4 flex items-center"> <FaTasks className='mr-2' />To Do</h2>
           <div className="h-1 w-full bg-purple-500"></div>
-          <div className="bg-white rounded-lg shadow-md p-4 grow">
+          <div className="bg-white rounded-lg p-4 grow">
             <TaskList
               tasks={todoTasks}
               onTaskClick={handleTaskClick}
@@ -86,7 +86,7 @@ const Dashboard = () => {
         <div className="flex flex-col mx-4 flex-1 text-yellow-500">
           <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaSpinner className='mr-2 ' /> In Progress</h2>
           <div className="h-1 w-full bg-yellow-500"></div>
-          <div className="bg-white rounded-lg shadow-md p-4 grow">
+          <div className="bg-white rounded-lg p-4 grow">
             <TaskList
               tasks={inProgressTasks}
               onTaskClick={handleTaskClick}
@@ -97,7 +97,7 @@ const Dashboard = () => {
         <div className="flex flex-col mx-4 flex-1 text-blue-500">
           <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaTimesCircle className='mr-2' /> In Review</h2>
           <div className="h-1 w-full bg-blue-500"></div>
-          <div className="bg-white rounded-lg shadow-md p-4 grow">
+          <div className="bg-white rounded-lg p-4 grow">
             <TaskList
               tasks={inReviewTasks}
               onTaskClick={handleTaskClick}
@@ -109,7 +109,7 @@ const Dashboard = () => {
           <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaCheckCircle className='mr-2' /> Done</h2>
           <div className="h-1 w-full bg-green-500"></div>
 
-          <div className="bg-white rounded-lg shadow-md p-4 grow">
+          <div className="bg-white rounded-lg p-4 grow">
             <TaskList
               tasks={doneTasks}
               onTaskClick={handleTaskClick}

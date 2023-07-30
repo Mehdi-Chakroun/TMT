@@ -8,7 +8,7 @@ async function getTasks(req, res) {
     const userRole = user.role;
     if (userRole === 'USER') {
       
-      const tasks = await Task.find({ assignees: req.user._id }).populate('assignees', 'fistName lastName').populate({
+      const tasks = await Task.find({ assignees: req.user.userId }).populate('assignees', 'fistName lastName').populate({
         path: 'comments',
         populate: {
           path: 'user',

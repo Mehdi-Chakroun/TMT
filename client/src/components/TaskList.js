@@ -23,7 +23,7 @@ const TaskList = ({ tasks, updateTaskState }) => {
             <div key={task._id} className="border rounded-lg p-4 mb-4">
               <div className="flex justify-between items-center mb-2">
                 <h3 className="text-xl font-semibold">{task.title}</h3>
-                <div>
+                <div className='flex'>
                   <button
                     className={`px-2 py-1 border border-black-500 text-black-500 hover:text-white rounded-lg transition-colors ${
                       task.state === 'TODO' ? 'hover:bg-purple-500' : ''} ${
