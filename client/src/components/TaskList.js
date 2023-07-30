@@ -25,15 +25,20 @@ const TaskList = ({ tasks, updateTaskState }) => {
                 <h3 className="text-xl font-semibold">{task.title}</h3>
                 <div>
                   <button
-                    className="px-2 py-1 border border-black-500 text-black-500 hover:bg-black hover:text-white rounded-lg transition-colors"
+                    className={`px-2 py-1 border border-black-500 text-black-500 hover:text-white rounded-lg transition-colors ${
+                      task.state === 'TODO' ? 'hover:bg-purple-500' : ''} ${
+                      task.state === 'IN_PROGRESS' ? 'hover:bg-yellow-500' : ''} ${
+                      task.state === 'IN_REVIEW' ? 'hover:bg-blue-500' : ''} ${
+                      task.state === 'DONE' ? 'hover:bg-green-500' : ''}`}
                     onClick={() => handleTaskClick(task)}
                   >
+                    
                     <FontAwesomeIcon icon={faEye} />
                   </button>
                   
                   {task.state === 'TODO' && (
                     <button
-                      className="px-2 py-1 border border-black-500 text-black-500 hover:bg-black hover:text-white rounded-lg transition-colors ml-2"
+                      className="px-2 py-1 border border-black-500 text-black-500 hover:bg-purple-500 hover:text-white rounded-lg transition-colors ml-2"
                       onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
                     >
                       <FontAwesomeIcon icon={faPlay} />
@@ -42,13 +47,13 @@ const TaskList = ({ tasks, updateTaskState }) => {
                   {task.state === 'IN_PROGRESS' && (
                     <>
                       <button
-                        className="px-2 py-1 border border-black-500 text-black-500 hover:bg-black hover:text-white rounded-lg transition-colors ml-2"
+                        className="px-2 py-1 border border-black-500 text-black-500 hover:bg-yellow-500 hover:text-white rounded-lg transition-colors ml-2"
                         onClick={() => handleUpdateTaskState(task._id, 'IN_REVIEW')}
                       >
                         <FontAwesomeIcon icon={faCheck} />
                       </button>
                       <button
-                        className="px-2 py-1 border border-black-500 text-black-500 hover:bg-black hover:text-white rounded-lg transition-colors ml-2"
+                        className="px-2 py-1 border border-black-500 text-black-500 hover:bg-yellow-500 hover:text-white rounded-lg transition-colors ml-2"
                         onClick={() => handleUpdateTaskState(task._id, 'TODO')}
                       >
                         <FontAwesomeIcon icon={faTimes} />
@@ -57,7 +62,7 @@ const TaskList = ({ tasks, updateTaskState }) => {
                   )}
                   {task.state === 'IN_REVIEW' && (
                     <button
-                      className="px-2 py-1 border border-black-500 text-black-500 hover:bg-black hover:text-white rounded-lg transition-colors ml-2"
+                      className="px-2 py-1 border border-black-500 text-black-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors ml-2"
                       onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
                     >
                       <FontAwesomeIcon icon={faReply} />

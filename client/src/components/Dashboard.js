@@ -72,9 +72,9 @@ const Dashboard = () => {
     <>
      <Header />
       <div className="flex justify-center py-10 flex-wrap container mx-auto">
-        <div className="flex flex-col mx-4 flex-1 text-orange-500">
+        <div className="flex flex-col mx-4 flex-1 text-purple-500">
           <h2 className="text-2xl font-semibold mb-4 flex items-center"> <FaTasks className='mr-2' />To Do</h2>
-          <div className="h-1 w-full bg-orange-500"></div>
+          <div className="h-1 w-full bg-purple-500"></div>
           <div className="bg-white rounded-lg shadow-md p-4 grow">
             <TaskList
               tasks={todoTasks}
@@ -83,9 +83,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col mx-4 flex-1 text-yellow-600">
+        <div className="flex flex-col mx-4 flex-1 text-yellow-500">
           <h2 className="text-2xl font-semibold mb-4 flex items-center"><FaSpinner className='mr-2 ' /> In Progress</h2>
-          <div className="h-1 w-full bg-yellow-600"></div>
+          <div className="h-1 w-full bg-yellow-500"></div>
           <div className="bg-white rounded-lg shadow-md p-4 grow">
             <TaskList
               tasks={inProgressTasks}
