@@ -56,7 +56,11 @@ async function getUsers(req, res) {
       const userRole = user.role;
       if (userRole === 'ADMIN' || userRole === 'SUPER_ADMIN') {
         const users = await User.find();
-        res.json(users);
+        const sortedUsers = users.sort((a, b) => {
+          const rolesOrder = { SUPER_ADMIN: 0, ADMIN: 1, USER: 2 };
+          return rolesOrder[a.role] - rolesOrder[b.role];
+        });
+        res.json(sortedUsers);
       } else {
         res.status(403).json({ error: 'Unauthorized' });
       }
