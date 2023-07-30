@@ -69,9 +69,10 @@ const AddTaskModal = ({ onClose, users }) => {
             </label>
             <select
               id="assignees"
+              multiple
               className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               value={assignees}
-              onChange={(e) => setAssignees(e.target.value)}
+              onChange={(e) => setAssignees(Array.from(e.target.selectedOptions, (option) => option.value))}
               required
             >
               <option value="" disabled>Select an assignee</option>
