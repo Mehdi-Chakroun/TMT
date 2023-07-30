@@ -1,6 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
-import { FaSignOutAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaSignOutAlt, FaChartBar, FaUser, FaUserShield } from 'react-icons/fa';
+import RoleIcon from './RoleIcon';
+
 const Header = () => {
     const role = localStorage.getItem('role');
     const firstName = localStorage.getItem('firstName');
@@ -13,19 +15,24 @@ const Header = () => {
       </div>
 
       <div className="flex items-center">
+        <RoleIcon role={role} />
+
+        <FaUser className="text-white mr-1 ml-4 text-xl" />
         <p className="mr-4">{`${firstName} ${lastName}`}</p>
 
-        {/* Show links based on user's role */}
         {role === 'ADMIN' || role === 'SUPER_ADMIN' ? (
           <>
-            {/* Link to Admin Page */}
-            <Link to="/admin" className="mr-4">
+            <Link to="/admin" className="mr-4 flex items-center">
+              <FaUserShield className="mr-1" />
               Admin
+            </Link>
+            <Link to="/dashboard" className="mr-4 flex items-center">
+              <FaChartBar className="mr-1" />
+              Dashboard
             </Link>
           </>
         ) : null}
 
-        {/* Logout link */}
         <button onClick={() => {
             localStorage.clear();
             window.location.href = '/';
