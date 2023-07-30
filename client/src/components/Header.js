@@ -26,13 +26,12 @@ const Header = () => {
               <FaUserShield className="mr-1" />
               Admin
             </Link>
-            <Link to="/dashboard" className="mr-4 flex items-center">
-              <FaChartBar className="mr-1" />
-              Dashboard
-            </Link>
           </>
         ) : null}
-
+        <Link to="/dashboard" className="mr-4 flex items-center">
+          <FaChartBar className="mr-1" />
+          Dashboard
+        </Link>
         <button onClick={() => {
             localStorage.clear();
             window.location.href = '/';
