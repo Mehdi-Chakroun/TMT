@@ -8,22 +8,10 @@ async function getTasks(req, res) {
     const userRole = user.role;
     if (userRole === 'USER') {
       
-      const tasks = await Task.find({ assignees: req.user.userId }).populate('assignees', 'fistName lastName').populate({
-        path: 'comments',
-        populate: {
-          path: 'user',
-          select: 'firstName lastName', 
-        },
-      });
+      const tasks = await Task.find({ assignees: req.user.userId }).populate('assignees', 'fistName lastName');
       res.json(tasks);
     } else {
-      const tasks = await Task.find().populate('assignees', 'fistName lastName').populate({
-        path: 'comments',
-        populate: {
-          path: 'user',
-          select: 'firstName lastName role',
-        },
-      });
+      const tasks = await Task.find().populate('assignees', 'fistName lastName');
       res.json(tasks);
     }
   } catch (error) {
@@ -88,8 +76,14 @@ async function updateTask(req, res) {
 const createComment = async (req, res) => {
   try {
     const { taskId } = req.params;
-    const { text, user } = req.body;
+    const { text, username } = req.body;
     // Create a new comment
+    const user = await User.findOne({ username });
+
+    if(!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     const newComment = new Comment({text, user});
 
     // Save the new comment to the database
@@ -103,6 +97,31 @@ const createComment = async (req, res) => {
 
   } catch (error) {
     console.error('Error creating comment:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const getComments = async (req, res) => {
+  try {
+    const { taskId } = req.params;
+
+    // Find the task with the given taskId
+    const task = await Task.findById(taskId);
+
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Populate the comments field of the task with the actual comments data
+    await task.populate({ path: 'comments', populate: { path: 'user', select: 'firstName lastName role' } });
+
+    // Extract the comments data from the populated task
+    const comments = task.comments;
+
+    res.status(200).json(comments);
+
+  } catch (error) {
+    console.error('Error fetching comments:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -147,5 +166,6 @@ module.exports = {
     deleteTask,
     updateTask,
     createComment,
-    patchTask
+    patchTask,
+    getComments
   };

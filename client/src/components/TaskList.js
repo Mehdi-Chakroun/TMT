@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TaskView from './TaskView';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPlay, faCheck, faTimes, faReply } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import '../css/styles.css';
+
+
 const TaskList = ({ tasks, updateTaskState }) => {
   const [selectedTask, setSelectedTask] = useState(null);
-
   const handleTaskClick = (task) => {
     setSelectedTask(task);
   };
   const handleUpdateTaskState = async (taskId, newState) => {
     await updateTaskState(taskId, newState);
   };
-  
+
 
   return (
     <div className="min-w-200">

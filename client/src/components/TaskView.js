@@ -1,6 +1,43 @@
 import React from 'react';
 import Comments from './Comments';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
 const TaskView = ({ task, onClose }) => {
+
+  const [comments, setComments] = useState([]);
+
+  const authAxios = axios.create({
+    baseURL: 'http://localhost:4000/api',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await authAxios.get(`/tasks/${task._id}/comments`);
+        setComments(response.data);
+      } catch (error) {
+        console.error('Error loading comments:', error);
+      }
+    };
+    fetchComments();
+  }, []);
+
+  const currentUsername = localStorage.getItem('username');
+
+  const addComment = async (comment) => {
+    try {
+      const response = await authAxios.post(`/tasks/${task._id}/comments`, {text: comment, username: currentUsername});
+      setComments((prevComments) => [...prevComments, response.data]);
+    } catch (error) {
+      console.error('Error creating comment:', error);
+    }
+  };
+
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto text-black">
       <div className="modal-overlay fixed inset-0 bg-black opacity-50 overflow-y-auto"></div>
@@ -23,7 +60,7 @@ const TaskView = ({ task, onClose }) => {
             <span>Created By: {task.createdBy}</span>
             <span>Created At: {task.createdAt}</span>
           </div>
-          <Comments comments={task.comments} />
+          <Comments comments={comments} handleAddComment={addComment} />
 
         </div>
 
