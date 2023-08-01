@@ -30,7 +30,13 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => {
         }
         
       </div>
+      <div className='flex items-center'>
       <RoleIcon role={user.role} />
+      <span className={user.role === 'SUPER_ADMIN' ? 'text-purple-600 ml-2' : user.role === 'ADMIN' ? 'text-green-600 ml-2' : 'text-yellow-400 ml-2'}>
+        {user.role}
+        </span>
+      </div>
+      
     </div>
   );
 };

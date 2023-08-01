@@ -21,7 +21,7 @@ async function getTasks(req, res) {
         path: 'comments',
         populate: {
           path: 'user',
-          select: 'firstName lastName',
+          select: 'firstName lastName role',
         },
       });
       res.json(tasks);

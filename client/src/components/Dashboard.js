@@ -49,7 +49,8 @@ const Dashboard = () => {
     return (
     <div>
       <ErrorTemplate errorMessage={error.message}/>
-    </div>);
+    </div>
+    );
   }
 
   const handleTaskClick = (task) => {

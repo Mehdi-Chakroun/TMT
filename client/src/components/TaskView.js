@@ -2,7 +2,7 @@ import React from 'react';
 import Comments from './Comments';
 const TaskView = ({ task, onClose }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto text-black">
       <div className="modal-overlay fixed inset-0 bg-black opacity-50 overflow-y-auto"></div>
       <div className="modal-container bg-white w-5/6 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
         <div className="modal-content py-4 px-6 flex flex-col h-screen">

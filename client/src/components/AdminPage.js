@@ -7,7 +7,7 @@ import sleep from '../utils';
 import LoadingTemplate from './LoadingTemplate';
 import ErrorTemplate from './ErrorTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faTasks } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faTasks, faCheckCircle, faUndo } from '@fortawesome/free-solid-svg-icons';
 import AddUserModal from './AddUserModal';
 import AddTaskModal from './AddTaskModal';
 
@@ -19,6 +19,7 @@ const AdminPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
+  const [inReviewTasks, setInReviewTasks] = useState([]);
 
   const authAxios = axios.create({
     baseURL: 'http://localhost:4000/api',
@@ -43,7 +44,31 @@ const AdminPage = () => {
     };
     fetchUsers();
   }, []);
-  
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await authAxios.get('/tasks');
+        const tasks = response.data;
+        const inReviewTasks = tasks.filter((task) => task.state === 'IN_REVIEW');
+        setInReviewTasks(inReviewTasks);
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      }
+    };
+    fetchTasks();
+  }, []);
+
+  const handleUpdateTaskState = async (taskId, newState) => {
+    try {
+      await authAxios.patch(`/tasks/${taskId}`, { state: newState });
+      const updatedTasks = inReviewTasks.filter((task) => task._id !== taskId);
+      setInReviewTasks(updatedTasks);
+
+    } catch (error) {
+      console.error('Error updating task state:', error);
+    }
+  };
 
   const handleDeleteUser = async (userId) => {
     try {
@@ -155,6 +180,48 @@ const AdminPage = () => {
       {isModalOpen && (
         <EditUserModal user={selectedUser} onClose={handleCloseModal} onUpdate={handleUserUpdate} />
       )}
+      <h2 className="text-2xl font-semibold mb-4 mt-8">Tasks In Review</h2>
+      <div className="bg-white rounded-lg shadow-md p-4 grow">
+        {inReviewTasks.length > 0 ? (
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="py-2 px-4 text-left">Title</th>
+                <th className="py-2 px-4 text-left">Type</th>
+                <th className="py-2 px-4 text-left">Due Date</th>
+                <th className="py-2 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {inReviewTasks.map((task) => (
+                <tr key={task._id} className="border-t border-gray-300">
+                  <td className="py-2 px-4">{task.title}</td>
+                  <td className="py-2 px-4">{task.type}</td>
+                  <td className="py-2 px-4">{task.dueDate}</td>
+                  <td className="py-2 px-4 text-right">
+                    <button
+                      className="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-colors mr-2"
+                      onClick={() => handleUpdateTaskState(task._id, 'DONE')}
+                    >
+                      <FontAwesomeIcon icon={faCheckCircle} className="text-base mr-2" />
+                      Mark as Done
+                    </button>
+                    <button
+                      className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors"
+                      onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
+                    >
+                      <FontAwesomeIcon icon={faUndo} className="text-base mr-2" />
+                      Go Back to In Progress
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="text-gray-600">No tasks in review.</p>
+        )}
+      </div>
      </div>
      {showCreateUserModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -171,6 +238,7 @@ const AdminPage = () => {
           </div>
         </div>
       )}
+      
     </>
     
   );

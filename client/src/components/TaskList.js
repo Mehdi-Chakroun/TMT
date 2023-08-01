@@ -17,6 +17,7 @@ const TaskList = ({ tasks, updateTaskState }) => {
 
   return (
     <div className="min-w-200">
+      {tasks.length === 0 && <p className="text-center italic">No tasks to show</p>}
       <TransitionGroup component={null}>
         {tasks.map((task) => (
           <CSSTransition key={task._id} classNames="task" timeout={300}>
