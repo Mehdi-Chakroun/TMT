@@ -80,7 +80,8 @@ const Dashboard = () => {
             <TaskList
               tasks={todoTasks}
               onTaskClick={handleTaskClick}
-              updateTaskState={updateTaskState} />
+              updateTaskState={updateTaskState}
+            />
           </div>
         </div>
 

@@ -8,10 +8,10 @@ async function getTasks(req, res) {
     const userRole = user.role;
     if (userRole === 'USER') {
       
-      const tasks = await Task.find({ assignees: req.user.userId }).populate('assignees', 'fistName lastName');
+      const tasks = await Task.find({ assignees: req.user.userId }).populate('assignees', 'fistName lastName').populate('createdBy', 'firstName lastName');
       res.json(tasks);
     } else {
-      const tasks = await Task.find().populate('assignees', 'fistName lastName');
+      const tasks = await Task.find().populate('assignees', 'firstName lastName').populate('createdBy', 'firstName lastName');
       res.json(tasks);
     }
   } catch (error) {
@@ -22,9 +22,13 @@ async function getTasks(req, res) {
 
 async function createTask(req, res) {
     try {
-        const { title, description, state, assignees, dueDate, type } = req.body;
+        const { title, description, state, assignees, dueDate, type, createdBy } = req.body;
         const dueDateObj = new Date(dueDate);
-        const newTask = new Task({ title, description, state, assignees, dueDate: dueDateObj, type });
+        const createdByUser = await User.findOne({ username: createdBy });
+        if (!createdByUser) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+        const newTask = new Task({ title, description, state, assignees, dueDate: dueDateObj, type, createdBy: createdByUser });
         const savedTask = await newTask.save();
         res.status(201).json(savedTask);
       } catch (error) {

@@ -15,6 +15,8 @@ const AddTaskModal = ({ onClose, users }) => {
     },
     });
 
+  const currentUsername = localStorage.getItem('username');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,7 +25,8 @@ const AddTaskModal = ({ onClose, users }) => {
       description,
       assignees,
       dueDate,
-      type
+      type,
+      createdBy: currentUsername
     };
 
     try {
