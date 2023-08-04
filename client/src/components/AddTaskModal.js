@@ -110,14 +110,14 @@ const AddTaskModal = ({ onClose, users }) => {
               onChange={(e) => setType(e.target.value)}
               required
             >
-              <option value="config">Config</option>
-              <option value="integration">Integration</option>
-              <option value="consulting">Consulting</option>
-              <option value="development">Development</option>
-              <option value="training">Training</option>
-              <option value="maintenance">Maintenance</option>
-              <option value="security">Security</option>
-              <option value="testing">Testing</option>
+              <option value="Config">Config</option>
+              <option value="Integration">Integration</option>
+              <option value="Consulting">Consulting</option>
+              <option value="Development">Development</option>
+              <option value="Training">Training</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Security">Security</option>
+              <option value="Testing">Testing</option>
             </select>
           </div>
           <div className="flex justify-end">

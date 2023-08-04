@@ -27,6 +27,7 @@ const Dashboard = () => {
     try {
       const response = await authAxios.get('/tasks');
       setTasks(response.data);
+      console.log('Tasks:', response.data);
     } catch (error) {
       setError(error);
       console.error('Error loading tasks:', error);
@@ -81,7 +82,7 @@ const Dashboard = () => {
               tasks={todoTasks}
               onTaskClick={handleTaskClick}
               updateTaskState={updateTaskState}
-            />
+              />
           </div>
         </div>
 

@@ -9,14 +9,14 @@ const taskSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     type: { type: String, enum: [
-      'config',
-      'integration',
-      'consulting',
-      'development',
-      'training',
-      'maintenance',
-      'security',
-      'testing'
+      'Config',
+      'Integration',
+      'Consulting',
+      'Development',
+      'Training',
+      'Maintenance',
+      'Security',
+      'Testing'
     ], required: true },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
   });
