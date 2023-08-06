@@ -27,7 +27,7 @@ const Comments = ({ comments, handleAddComment }) => {
   const formattedCreatedAt = (createdAt) => {
     return new Date(createdAt).toLocaleString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'numeric',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'

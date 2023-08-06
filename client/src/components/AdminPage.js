@@ -156,7 +156,7 @@ const AdminPage = () => {
   const formattedDueDate = (dueDate) => {
     return new Date(dueDate).toLocaleString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'numeric',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
