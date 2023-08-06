@@ -72,6 +72,7 @@ const TaskView = ({ task, onClose }) => {
               <FontAwesomeIcon icon={faTimes} className="text-2xl" />
             </button>
           </div>
+          <div className="border-b border-gray-300 pb-3 mb-4"></div>
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
               <p className="text-gray-600 mt-4">
