@@ -61,8 +61,8 @@ const TaskView = ({ task, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-y-auto">
       <div className="modal-overlay fixed inset-0 bg-black opacity-50 overflow-y-auto"></div>
-      <div className="modal-container bg-white w-5/6 md:max-w-3xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
-        <div className="modal-content py-4 px-6 flex flex-col h-screen text-black">
+      <div className="modal-container bg-white max-w-6xl mx-auto rounded shadow-lg z-50 overflow-y-auto mt-80 min-h-screen">
+        <div className="modal-content py-4 px-6 flex flex-col text-black">
           <div className="flex justify-between items-center pb-3">
             <h2 className="text-2xl font-semibold mr-4">{task.title}</h2>
             <button

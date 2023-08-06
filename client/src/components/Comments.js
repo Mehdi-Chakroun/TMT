@@ -24,6 +24,15 @@ const Comments = ({ comments, handleAddComment }) => {
     }
   }, [newComment]);
 
+  const formattedCreatedAt = (createdAt) => {
+    return new Date(createdAt).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   return (
     
@@ -34,6 +43,7 @@ const Comments = ({ comments, handleAddComment }) => {
             <div className="flex items-center mb-2">
             <RoleIcon role={comment.user.role} />
             <span className="ml-2 font-semibold mr-2">{comment.user.lastName + ' ' + comment.user.firstName}</span>
+            <span className="text-gray-500 text-sm">{formattedCreatedAt(comment.createdAt)}</span>
             </div>
             <p className="text-gray-600 ml-8">
               {comment.text}
