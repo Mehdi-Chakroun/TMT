@@ -156,7 +156,8 @@ async function patchTask(req, res) {
         path: 'user',
         select: 'firstName lastName',
       },
-    });
+    })
+    .populate('createdBy', 'firstName lastName');
     res.json(updatedTask);
   } catch (error) {
     console.error('Error updating task:', error);
