@@ -7,7 +7,7 @@ import sleep from '../utils';
 import LoadingTemplate from './LoadingTemplate';
 import ErrorTemplate from './ErrorTemplate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faTasks, faCheckCircle, faUndo, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faTasks, faCheckCircle, faUndo, faTimes, faList, faUsersLine } from '@fortawesome/free-solid-svg-icons';
 import AddUserModal from './AddUserModal';
 import AddTaskModal from './AddTaskModal';
 import TypeIcon from './TypeIcon';
@@ -194,15 +194,16 @@ const AdminPage = () => {
       </div>
 
      <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-semibold mb-6">Users:</h1>
+      <h1 className="text-3xl font-semibold mb-6"> <FontAwesomeIcon icon={faUsersLine} /> Users:</h1>
       <UserList users={users} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser} />
 
       {isModalOpen && (
         <EditUserModal user={selectedUser} onClose={handleCloseModal} onUpdate={handleUserUpdate} />
       )}
-      <h2 className="text-2xl font-semibold mb-4 mt-8">Tasks In Review</h2>
+      <h2 className="text-2xl font-semibold mb-4 mt-8"><FontAwesomeIcon icon={faList} /> Tasks:</h2>
       <div className="bg-white rounded-lg shadow-md p-4 grow">
         {tasks.length > 0 ? (
+          <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gray-100">
@@ -217,29 +218,33 @@ const AdminPage = () => {
               {tasks.map((task) => (
                 <tr key={task._id} className="border-t border-gray-300">
                   <td className="py-2 px-4">{task.title}</td>
-                  <td className="py-2 px-4"> <TypeIcon type={task.type}/> {task.type}</td>
-                  <td className="py-2 px-4"> <TaskIcon state={task.state} /> {task.state}</td>
+                  <td className="py-2 px-4">
+                    <TypeIcon type={task.type} /> {task.type}
+                  </td>
+                  <td className="py-2 px-4">
+                    <TaskIcon state={task.state} /> {task.state}
+                  </td>
                   <td className="py-2 px-4">{formattedDueDate(task.dueDate)}</td>
                   <td className="py-2 px-4 text-right">
-                    {
-                      task.state === 'IN_REVIEW' && (
-                        <>
+                    {task.state === 'IN_REVIEW' && (
+                      <>
                         <button
-                      className="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-colors mr-2"
-                      onClick={() => handleUpdateTaskState(task._id, 'DONE')}
-                    >
-                      <FontAwesomeIcon icon={faCheckCircle} className="text-base mr-2" />
-                    </button>
+                          className="px-4 py-2 border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-lg transition-colors mr-2"
+                          onClick={() => handleUpdateTaskState(task._id, 'DONE')}
+                        >
+                          <FontAwesomeIcon icon={faCheckCircle} className="text-base mr-2" />
+                        </button>
+                        <button
+                          className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
+                          onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
+                        >
+                          <FontAwesomeIcon icon={faUndo} className="text-base mr-2" />
+                        </button>
+                      </>
+                    )}
                     <button
-                      className="px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition-colors mr-2"
-                      onClick={() => handleUpdateTaskState(task._id, 'IN_PROGRESS')}
-                    >
-                      <FontAwesomeIcon icon={faUndo} className="text-base mr-2" />
-                    </button>
-                        </>
-                      )}
-                    <button className="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-colors"
-                      onClick={()=> handleTaskDelete(task._id)}
+                      className="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-lg transition-colors"
+                      onClick={() => handleTaskDelete(task._id)}
                     >
                       <FontAwesomeIcon icon={faTimes} className="text-base mr-2" />
                     </button>
@@ -248,8 +253,10 @@ const AdminPage = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        
         ) : (
-          <p className="text-gray-600">No tasks in review.</p>
+          <p className="text-gray-600">No tasks.</p>
         )}
       </div>
      </div>
