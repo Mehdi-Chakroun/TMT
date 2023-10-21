@@ -1,6 +1,10 @@
 name: GitHub Actions Demo B
 run-name: ${{ github.actor }} is testing out GitHub Actions B 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - MAC-DEV-B
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
