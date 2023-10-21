@@ -10,4 +10,4 @@ const Comment = mongoose.model('Comment', commentSchema);
 
 module.exports = Comment;
 
-// Testing out commiting to GitHub from VS Code for triggering workflow 2
+// Testing out commiting to GitHub from VS Code for triggering workflow
