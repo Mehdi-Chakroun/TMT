@@ -51,7 +51,7 @@ const Comments = ({ comments, handleAddComment }) => {
         </div>
       ))}
        <textarea
-          rows="3" // You can adjust the number of rows here to control the input's height
+          rows="3" 
           value={newComment}
           onChange={handleCommentChange}
           placeholder="Add a comment..."

@@ -6,16 +6,13 @@ async function registerUser(req, res) {
     try {
         const { username, password, firstName, lastName, role } = req.body;
     
-        // Check if the username is already taken
         const existingUser = await User.findOne({ username });
         if (existingUser) {
           return res.status(409).json({ error: 'Username already exists' });
         }
     
-        // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
     
-        // Create a new user
         const newUser = new User({ username, password: hashedPassword, firstName, lastName, role });
         const savedUser = await newUser.save();
     
@@ -29,19 +26,17 @@ async function loginUser(req, res) {
     try {
         const { username, password } = req.body;
     
-        // Find the user by username
+        
         const user = await User.findOne({ username });
         if (!user) {
           return res.status(401).json({ error: 'Invalid username or password' });
         }
     
-        // Compare the password with the hashed password
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
           return res.status(401).json({ error: 'Invalid username or password' });
         }
     
-        // Generate a JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
     
         res.json({ token, firstName: user.firstName, lastName: user.lastName, role: user.role, username: user.username});
@@ -82,7 +77,7 @@ async function deleteUser(req, res) {
 
 const updateUser = async (req, res) => {
   try {
-    const { username, firstName, lastName, role } = req.body; // Assuming the fields you want to update are in the request body
+    const { username, firstName, lastName, role } = req.body;
     const user = await User.findById(req.params.userId);
 
     if (!user) {

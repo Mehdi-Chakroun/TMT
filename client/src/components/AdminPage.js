@@ -193,7 +193,7 @@ const AdminPage = () => {
         </button>
       </div>
 
-     <div className="container mx-auto py-10">
+     <div className="container px-6 py-10">
       <h1 className="text-3xl font-semibold mb-6"> <FontAwesomeIcon icon={faUsersLine} /> Users:</h1>
       <UserList users={users} onDeleteClick={handleDeleteUser} onEditClick={handleEditUser} />
 

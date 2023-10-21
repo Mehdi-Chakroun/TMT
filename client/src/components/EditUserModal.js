@@ -28,7 +28,6 @@ const EditUserModal = ({ user, onClose, onUpdate }) => {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      // Perform the update here with the updated user data
       onUpdate({
         username,
         firstName,

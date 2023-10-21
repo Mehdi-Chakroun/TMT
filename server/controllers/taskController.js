@@ -51,21 +51,18 @@ async function updateTask(req, res) {
     const taskId = req.params.taskId;
     const { title, type, description, dueDate, assignees } = req.body;
 
-    // Find the task by ID
     const taskToUpdate = await Task.findById(taskId);
 
     if (!taskToUpdate) {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    // Update the task properties
     taskToUpdate.title = title;
     taskToUpdate.type = type;
     taskToUpdate.description = description;
-    taskToUpdate.dueDate = new Date(dueDate); // Convert dueDate string to Date object
+    taskToUpdate.dueDate = new Date(dueDate); 
     taskToUpdate.assignees = assignees;
 
-    // Save the updated task to the database
     const updatedTask = await taskToUpdate.save();
 
     res.json(updatedTask);
@@ -76,12 +73,10 @@ async function updateTask(req, res) {
 }
 
 
-// Example code to add a comment to a task
 const createComment = async (req, res) => {
   try {
     const { taskId } = req.params;
     const { text, username } = req.body;
-    // Create a new comment
     const user = await User.findOne({ username });
 
     if(!user) {
@@ -90,10 +85,8 @@ const createComment = async (req, res) => {
 
     const newComment = new Comment({text, user});
 
-    // Save the new comment to the database
     const savedComment = await newComment.save();
 
-    // Find the task and add the comment reference to the task's comments array
     const task = await Task.findById(taskId);
     task.comments.push(savedComment._id);
     await task.save();
@@ -109,17 +102,14 @@ const getComments = async (req, res) => {
   try {
     const { taskId } = req.params;
 
-    // Find the task with the given taskId
     const task = await Task.findById(taskId);
 
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    // Populate the comments field of the task with the actual comments data
     await task.populate({ path: 'comments', populate: { path: 'user', select: 'firstName lastName role' } });
 
-    // Extract the comments data from the populated task
     const comments = task.comments;
 
     res.status(200).json(comments);
@@ -135,21 +125,16 @@ async function patchTask(req, res) {
   const { state } = req.body;
 
   try {
-    // Find the task by ID
     const task = await Task.findById(id);
 
-    // If the task is not found, return a 404 response
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
 
-    // Update the state of the task
     task.state = state;
     
-    // Save the updated task in the database
     await task.save();
 
-    // Return the updated task as the response
     const updatedTask = await Task.findById(id).populate('assignees', 'firstName lastName').populate({
       path: 'comments',
       populate: {
