@@ -45,7 +45,7 @@ const AdminPage = () => {
       setLoading(false);
     };
     fetchUsers();
-  }, []);
+  }, [authAxios]);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -57,7 +57,7 @@ const AdminPage = () => {
       }
     };
     fetchTasks();
-  }, []);
+  }, [authAxios]);
 
   const handleUpdateTaskState = async (taskId, newState) => {
     try {

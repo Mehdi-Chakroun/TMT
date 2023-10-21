@@ -35,7 +35,7 @@ const Dashboard = () => {
     setLoading(false);
   };
     fetchTasks();
-  }, []);
+  }, [authAxios]);
 
   const todoTasks = tasks.filter((task) => task.state === 'TODO');
   const inProgressTasks = tasks.filter((task) => task.state === 'IN_PROGRESS');

@@ -28,7 +28,7 @@ const TaskView = ({ task, onClose }) => {
       }
     };
     fetchComments();
-  }, []);
+  }, [authAxios, task._id]);
 
   const currentUsername = localStorage.getItem('username');
 

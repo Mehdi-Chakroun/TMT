@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TaskView from './TaskView';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPlay, faCheck, faTimes, faReply, faClock } from '@fortawesome/free-solid-svg-icons';
